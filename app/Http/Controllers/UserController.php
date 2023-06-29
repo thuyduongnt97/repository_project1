@@ -8,6 +8,7 @@ use App\Repositories\UserRepositoryInterface;
 class UserController extends Controller
 {
     private $userRepository;
+    
     public function __construct(UserRepositoryInterface $userRepository) {
         $this->userRepository = $userRepository;
     }

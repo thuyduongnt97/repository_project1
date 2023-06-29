@@ -1,11 +1,11 @@
 <?php
 namespace App\Repositories\Eloquent;
 
-use App\Models\Domain;
+use App\Models\Role;
 use App\Repositories\Eloquent\BaseRepository;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\RoleRepositoryInterface;
 
-class UserRepository extends BaseRepository implements UserRepositoryInterface{
+class RoleRepository extends BaseRepository implements RoleRepositoryInterface{
     /**
      * @var Model
      */
@@ -16,8 +16,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface{
      * 
      * @param Model $model
      */
-    public function __construct(Domain $model) {
+    public function __construct(Role $model) {
         $this->model = $model;
     }
-    
 }

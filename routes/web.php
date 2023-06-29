@@ -18,13 +18,18 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-
 Route::group(['middleware' => 'role:developer'], function() {
     Route::get('/admin', function() {
        return 'Welcome Admin';
     });
- });
+});
+
+// Quản lý role thêm sửa xóa
+Route::prefix('/role')->group(function () {
+    Route::get('/', 'RoleController@index')->name('role.index');
+    Route::post('/create', 'RoleController@create')->name('role.create');
+});
+Route::prefix('user')->group(function () {
+    Route::get('/', 'UserController@index')->name('user.index');
+});

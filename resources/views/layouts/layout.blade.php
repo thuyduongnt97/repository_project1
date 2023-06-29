@@ -9,6 +9,7 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>CoreUI Free Bootstrap Admin Template</title>
     {{-- <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
@@ -36,26 +37,36 @@
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script>
         window.dataLayer = window.dataLayer || [];
-
-     
     </script>
+    
     <link href="{{ asset('css/coreui-chartjs.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
 </head>
 
-<body>
-    @include('layouts.sidebar')
+<body >
+    <div id="app">
 
-    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-        @include('layouts.header')
-        @yield('content')
-        <footer class="footer">
-            <div><a href="https://coreui.io">CoreUI </a><a href="https://coreui.io">Bootstrap Admin Template</a> ©
-                2022 creativeLabs.</div>
-            <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
-        </footer>
+        @include('layouts.sidebar')
+
+        <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+            @include('layouts.header')
+
+            <div class="body flex-grow-1 px-3">
+                <div class="container-lg">
+
+                    @yield('content')
+
+
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div><a href="https://coreui.io">CoreUI </a><a href="https://coreui.io">Bootstrap Admin Template</a> ©
+                    2022 creativeLabs.</div>
+                <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
+            </footer>
+        </div>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
@@ -63,9 +74,16 @@
     <!-- Plugins and scripts required by this view-->
     <script src="{{ asset('js/chart.min.js') }}"></script>
     <script src="{{ asset('js/coreui-chartjs.js') }}"></script>
-    <script src="{{ asset('js/coreui-utils.js') }}"></script>
+    <script await src="{{ asset('js/coreui-utils.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+    @stack('other-scripts')
 
 </body>
 
