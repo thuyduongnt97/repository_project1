@@ -20,7 +20,7 @@ class RoleController extends Controller
     }
     public function create(Request $request) {
         $validated = Validator::make($request->all(), [
-            'name'=>"required",
+            'name'=>"required|unique:roles|max:255",
             'slug' => 'required|unique:roles|max:255',
         ]);
         if($validated->fails()){
@@ -28,5 +28,32 @@ class RoleController extends Controller
         }
         $result = $this->roleRepository->create($request->all());
         return response()->json(['success' => true, 'data' => $result], 200);
+    }
+
+    public function delete(Request $request){
+        $result = $this->roleRepository->deleteById($request->id);
+        if($result){
+            return response()->json(['result' => true]);
+        }
+        return response()->json(['result' => false]);
+        
+    }
+    public function update(Request $request) {
+        $validated = Validator::make($request->all(), [
+            'name'=>"required|unique:roles|max:255",
+            'slug' => 'required|unique:roles|max:255',
+        ]);
+        if($validated->fails()){
+            return response()->json(['error'=>$validated->errors()->all()]);
+        }
+        $payload = [
+            'name' => $request->name,
+            'slug' => $request->slug
+        ];
+        $result = $this->roleRepository->update($request->id, $payload);
+        if($result){
+            return response()->json(['result' => true]);
+        }
+        return response()->json(['result' => false]);
     }
 }

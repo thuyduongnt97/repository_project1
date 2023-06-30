@@ -25,7 +25,7 @@ class BaseRepository implements EloquentRepositoryInterface{
      * @return Collection
      */
     public function all(array $columns=['*'], array $relations=[]) : Collection {
-        return $this->model->with($relations)->get($columns);
+        return $this->model->with($relations)->orderBy('created_at','desc')->get($columns);
     }
     
     /**

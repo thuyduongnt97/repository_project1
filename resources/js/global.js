@@ -1,6 +1,4 @@
-window
-
-
+window.toastLiveExample = document.getElementById('liveToast');
 window.serializeArrayIncludingDisabledFields = function(form) {
     var disabled = form.find(':input:disabled').removeAttr('disabled');
     // serialize the form
@@ -34,5 +32,11 @@ window.removeAccents = function(str) {
         str = str.replace(re, char);
     }
     str = str.replace(/\s/g,'');
+    str = str.replace(/-/g,'');
     return str;
+}
+window.showToast = function(){
+    const toastLiveExample = document.getElementById('liveToast'); 
+    const toast = new coreui.Toast(toastLiveExample);
+    toast.show()
 }

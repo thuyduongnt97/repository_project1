@@ -1,7 +1,8 @@
 @props([
     'title'=> '',
     'titleButton' => '',
-    'idModal' => ''
+    'idModal' => '',
+    'idTable' => ''
 ])
 
 <div class="card mb-4">
@@ -13,7 +14,7 @@
     <div class="card-body">
         <div class="example">
             <div class="tab-content rounded-bottom">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="{{ $idTable }}">
                     {{ $slot }}
                 </table>
             </div>

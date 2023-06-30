@@ -72,7 +72,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
   \********************************/
 /***/ (() => {
 
-window;
+window.toastLiveExample = document.getElementById('liveToast');
 window.serializeArrayIncludingDisabledFields = function (form) {
   var disabled = form.find(':input:disabled').removeAttr('disabled');
   // serialize the form
@@ -92,7 +92,13 @@ window.removeAccents = function (str) {
     str = str.replace(re, _char);
   }
   str = str.replace(/\s/g, '');
+  str = str.replace(/-/g, '');
   return str;
+};
+window.showToast = function () {
+  var toastLiveExample = document.getElementById('liveToast');
+  var toast = new coreui.Toast(toastLiveExample);
+  toast.show();
 };
 
 /***/ }),

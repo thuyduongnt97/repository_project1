@@ -40,6 +40,7 @@
     </script>
     
     <link href="{{ asset('css/coreui-chartjs.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/jquery-confirm.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
@@ -76,6 +77,8 @@
     <script src="{{ asset('js/coreui-chartjs.js') }}"></script>
     <script await src="{{ asset('js/coreui-utils.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-confirm.min.js') }}"></script>
+
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

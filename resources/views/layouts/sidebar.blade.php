@@ -18,8 +18,9 @@
         <li class="nav-title">Setting</li>
         <x-nav-group title="Quản lý Tool" iconLink="img_admin/svg/free.svg#cil-puzzle">
             <x-nav-item route="home"> User </x-nav-item>
-            <x-nav-item route="home"> Role </x-nav-item>
-            <x-nav-item route="home"> Permission </x-nav-item>
+            <x-nav-item route="role.index"> Role </x-nav-item>
+            <x-nav-item route="permission.index"> Permission </x-nav-item>
+            <x-nav-item route="role-permission.index"> Role-Permission </x-nav-item>
             <x-nav-item route="home"> Phân quyền </x-nav-item>
         </x-nav-group>
         <li class="nav-group">

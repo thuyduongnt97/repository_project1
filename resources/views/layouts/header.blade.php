@@ -8,7 +8,7 @@
         </button>
         <a class="header-brand d-md-none" href="#">
             <svg width="118" height="46" alt="CoreUI Logo">
-                <use xlink:href="assets/brand/coreui.svg#full"></use>
+                <use xlink:href="{{ asset('img_admin/brand/coreui.svg#full') }}"></use>
             </svg>
         </a>
         <ul class="header-nav d-none d-md-flex">
