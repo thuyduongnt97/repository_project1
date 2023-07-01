@@ -12,6 +12,8 @@
         <span class="small ms-1">{{ $title }}</span>
         @if (!$editTable)
             <button class="btn btn-outline-primary rounded-pill btn-sm" data-coreui-toggle="modal" data-coreui-target="#{{ $idModal }}" data-coreui-whatever="@mdo" style="float: right">{{ $titleButton }}</button>
+        @else
+            <button class="btn btn-outline-primary rounded-pill btn-sm" id="editTable" style="float: right">Edit</button>
         @endif
     </div>
     <div class="card-body">

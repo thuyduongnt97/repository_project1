@@ -4,7 +4,7 @@
 @php
     // dd($role_permission); exit;
 @endphp
-    <x-setting.table title="List Role" idTable="tableRole" editTable="true" >
+    <x-setting.table title="List Role" idTable="tableRole" editTable="true">
         <thead >
             <tr>
                 <th scope="col" class="diagonalFalling">Action</th>
@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ $valP->name }}</td>
                     @foreach ($roles as $valR)
-                        <td><input type="checkbox" name="" id="" class="form-controll" @if (count($role_permission->where('role_id', $valR->id)->where('permission_id',$valP->id)) > 0)
+                        <td><input type="checkbox" name="" id="" class="form-check-input" @if (count($role_permission->where('role_id', $valR->id)->where('permission_id',$valP->id)) > 0)
                             checked
                         @endif></td>
                     @endforeach
