@@ -1,25 +1,32 @@
 @extends('layouts.layout')
 
 @section('content')
-<style>
-    td.diagonalFalling
-    {
-        background: linear-gradient(to right top, #ffffff 0%,#ffffff 49.9%,#000000 50%,#000000 51%,#ffffff 51.1%,#ffffff 100%);
-    }
-</style>
-    <x-setting.table title="List Role" titleButton="Add Role" idModal="addRole" idTable="tableRole">
-        <thead>
+@php
+    // dd($role_permission); exit;
+@endphp
+    <x-setting.table title="List Role" idTable="tableRole" editTable="true" >
+        <thead >
             <tr>
-                <th scope="col" class="diagonalFalling">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">slug</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="diagonalFalling">Action</th>
+                @foreach ($roles as $valR)
+                    <th>{{ $valR->name }}</th>
+                @endforeach
             </tr>
         </thead>
         <tbody>
-            <tr>
-                
-            </tr>
+            @foreach ($permissions as $valP)
+
+                <tr>
+                    <td>{{ $valP->name }}</td>
+                    @foreach ($roles as $valR)
+                        <td><input type="checkbox" name="" id="" class="form-controll" @if (count($role_permission->where('role_id', $valR->id)->where('permission_id',$valP->id)) > 0)
+                            checked
+                        @endif></td>
+                    @endforeach
+                    <td></td>
+                </tr>
+            @endforeach
+            
 
         </tbody>
     </x-setting.table>
