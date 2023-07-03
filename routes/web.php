@@ -40,6 +40,13 @@ Route::prefix('/permission')->group(function () {
 });
 Route::prefix('/role-permission')->group(function () {
     Route::get('/', 'RolePermissionController@index')->name('role-permission.index');
+    Route::post('/update', 'RolePermissionController@update')->name('role-permission.update');
+});
+
+Route::prefix('/user-role')->group(function () {
+    Route::get('/', 'UserRoleController@index')->name('user-role.index');
+    Route::post('/add', 'UserRoleController@add')->name('user-role.add');
+    Route::post('/delete', 'UserRoleController@delete')->name('user-role.delete');
 });
 Route::prefix('user')->group(function () {
     Route::get('/', 'UserController@index')->name('user.index');

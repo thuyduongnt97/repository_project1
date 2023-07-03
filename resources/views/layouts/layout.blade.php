@@ -41,7 +41,7 @@
     
     <link href="{{ asset('css/coreui-chartjs.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/jquery-confirm.min.css') }}">
-
+    <link href="{{ asset('css/brand.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
@@ -54,7 +54,7 @@
             @include('layouts.header')
 
             <div class="body flex-grow-1 px-3">
-                <div class="container-lg">
+                <div >
 
                     @yield('content')
 

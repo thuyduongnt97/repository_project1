@@ -40,3 +40,6 @@ window.showToast = function(){
     const toast = new coreui.Toast(toastLiveExample);
     toast.show()
 }
+window.compare = function (a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}

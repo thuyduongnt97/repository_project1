@@ -76,11 +76,14 @@
                     url: "{{ route('role.create') }}",
                     data: data,
                     success: function (response) {
-                        if(typeof response.error !== "undefined" && response){
-                            $('.error-form').html(textRes.error[0]);
-                            $('.error-form').css('display', '');
+                        if(typeof response.error != "undefined" && response){
+                            let html = ''
+                             response.error.forEach(element => {
+                                html += `${element}<br>` ;
+                            });
+                            $('#addRole .error-form').html(html);
+                            $('#addRole .error-form').css('display', '');
                         }else{
-                            console.log(response);
                             var res = response.data;
                             var html = `<tr>
                                             <th scope="row">#</th>
@@ -94,6 +97,7 @@
                             $('#RoleTable').prepend(html);
                             $('#formCreateRole')[0].reset();
                             $('#addRole').modal('toggle');
+                            $('#addRole .error-form').css('display', 'none');
                             showToast();
                         }
                     }
@@ -114,18 +118,22 @@
                     url: "{{ route('role.update') }}",
                     data: data,
                     success: function (response) {
-                        if(typeof response.error !== "undefined" && response){
-                            $('.error-form').html(textRes.error[0]);
-                            $('.error-form').css('display', '');
+                        if(typeof response.error != "undefined" && response){
+                            let html = ''
+                             response.error.forEach(element => {
+                                html += `${element}<br>` ;
+                            });
+                            $('#updateRole .error-form').html(html);
+                            $('#updateRole .error-form').css('display', '');
                         }else{
                             if(response.result){
-                                console.log(response.result);
                                 let id = $('#formEditRole').find('input[name=id]').val();
                                 var currentRow = $("tr#role"+id); 
                                 currentRow.find("td:eq(0)").text(data.name)
                                 currentRow.find("td:eq(1)").text(data.slug)
                                 $('#formCreateRole')[0].reset();
                                 $('#updateRole').modal('toggle');
+                                $('#updateRole .error-form').css('display', 'none');
                                 showToast();
                             }
                         }

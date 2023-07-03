@@ -14265,3 +14265,18 @@ html:not([dir=rtl]) .wrapper {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+table th.tdCenter, td.tdCenter {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.center-value {
+  text-align: center;
+}
+
+table input[type=checkbox] {
+  width: 19px;
+  height: 19px;
+  margin: 0 auto;
+}

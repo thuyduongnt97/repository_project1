@@ -19,4 +19,16 @@ class RolePermissionRepository extends BaseRepository implements RolePermissionR
     public function __construct(RolePermission $model) {
         $this->model = $model;
     }
+    public function deleteAll() {
+        // \DB::connection()->enableQueryLog();
+        $this->model->whereNotNull('role_id')->delete();
+        // $queries = \DB::getQueryLog();
+        // dd($queries);
+    }
+    /**
+     * 
+     */
+    public function insertMulti(array $data){
+        $this->model->insert($data);
+    }
 }

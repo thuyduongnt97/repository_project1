@@ -26,4 +26,10 @@ class RolePermissionController extends Controller
         $role_permission = $this->rolepermissionRepository->all();
         return view('page.setting.role_permission', compact('roles', 'permissions', 'role_permission'));
     }
+
+    public function update(Request $request){
+        $this->rolepermissionRepository->deleteAll();
+        $this->rolepermissionRepository->insertMulti($request->role_permission);
+        return true;
+    }
 }
