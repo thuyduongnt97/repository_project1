@@ -8,7 +8,7 @@
         </button>
         <a class="header-brand d-md-none" href="#">
             <svg width="118" height="46" alt="CoreUI Logo">
-                <use xlink:href="assets/brand/coreui.svg#full"></use>
+                <use xlink:href="{{ asset('img_admin/brand/coreui.svg#full') }}"></use>
             </svg>
         </a>
         <ul class="header-nav d-none d-md-flex">
@@ -129,7 +129,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0 ms-2">
                 <li class="breadcrumb-item">
-                    <!-- if breadcrumb is single--><span>Home</span>
+                    <span>Home</span>
                 </li>
                 <li class="breadcrumb-item active"><span>Dashboard</span></li>
             </ol>

@@ -14,3 +14,17 @@ $enable-rtl: true; /* stylelint-disable-line scss/dollar-variable-default */
 
 // If you want to add custom CSS you can put it here.
 @import "custom";
+
+table th.tdCenter,td.tdCenter {
+    text-align: center; 
+    vertical-align: middle;
+    
+}
+.center-value{
+    text-align: center;
+}
+table input[type='checkbox']{
+    width:19px; 
+    height:19px; 
+    margin:0 auto;
+}
