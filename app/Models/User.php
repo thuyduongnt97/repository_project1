@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     use HasPermissionsTrait; //Import The Trait
 
-
+    
     
 }

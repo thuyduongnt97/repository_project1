@@ -1,24 +1,33 @@
 @extends('layouts.layout')
 
 @section('content')
-    <x-setting.table title="List Role" titleButton="Add Role" idModal="addRole" idTable="tableRole">
+    <x-setting.table title="List User" titleButton="Add User" idModal="addUser" idTable="tableUser">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">slug</th>
+                <th scope="col">Email</th>
+                <th scope="col">Blocked</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody id="RoleTable">
-            @forelse ($roles as $k => $val)
-                <tr id="role{{ $val->id }}">
+            @forelse ($users as $k => $val)
+                <tr id="user{{ $val->id }}">
                     <th scope="row">{{ $k + 1 }}</th>
                     <td>{{ $val->name }}</td>
-                    <td>{{ $val->slug }}</td>
+                    <td>{{ $val->email }}</td>
                     <td>
-                        <button class="btn btn-outline-primary rounded-pill btn-sm modalEditRole" data-id="{{ $val->id }}" data-coreui-toggle="modal" data-coreui-target="#updateRole" data-coreui-whatever="@mdo">Sửa</button>
+                        @if ($val->blocked == 1)
+                            <i class="icon icon-2xl mt-5 mb-2 cil-check"></i>
+                        @endif
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary rounded-pill btn-sm modalEditRole" data-id="{{ $val->id }}" data-coreui-toggle="modal" data-coreui-target="#updateRole" data-coreui-whatever="@mdo"><i class="fa fa-edit" style="font-size:20px"></i></button>
                         <button class="btn btn-outline-primary rounded-pill btn-sm confirmDeleteRole" data-id="{{ $val->id }}" data-name="{{ $val->name }}">Xóa</button>
+                        <button class="btn btn-outline-primary rounded-pill btn-sm">
+                            <i class="icon icon-2xl cil-user-x"></i>
+                        </button>
                     </td>
                 </tr>
             @empty
@@ -29,15 +38,25 @@
             
         </tbody>
     </x-setting.table> 
-    <x-modal idModal="addRole" titleModal="Add Role" titleButton="Save" idButton="CreateRole">
-        <form id="formCreateRole">
-            <div class="mb-3">
-                <label class="col-form-label" for="recipient-name" >Name:</label>
-                <input class="form-control nameRole" type="text" name="name" class="@error('title') is-invalid @enderror">
+    <x-modal idModal="addUser" titleModal="Add User" titleButton="Save" idButton="CreateUser">
+        <form id="formCreateUser">
+            <div class="form-floating mb-3">
+                <input class="form-control @error('title') is-invalid @enderror" type="text" name="name" id="floatingName" required> 
+                <label class="form-label" for="recipient-name" >Name:</label>
+               
             </div>
-            <div class="mb-3">
-                <label class="col-form-label" for="message-text">Slug:</label>
-                <input class="form-control slugRole" type="text" name="slug" readonly class="@error('title') is-invalid @enderror">
+            <div class="form-floating mb-3">
+                <input class="form-control @error('title') is-invalid @enderror" type="text" name="email" id="floatingEmail" required>
+                <label class="" for="message-text">Email:</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control @error('title') is-invalid @enderror" type="password" name="password" id="floatingPassword" required>
+                <label class="" for="message-text">Password:</label>
+
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control" type="password" name="" required id="passwordConfirm">
+                <label class="" for="message-text">Confirm Password:</label>
             </div>
             <div class="alert alert-danger error-form" style="display: none"></div>
         </form>
@@ -56,24 +75,53 @@
             <div class="alert alert-danger error-form" style="display: none"></div>
         </form>
     </x-modal>
-
-    <x-toast-success title="Thành công" mess="Bạn đã thêm role thành công"></x-toast-success>
+    <x-toast-success title="Thành công" mess="Bạn đã thêm user thành công"></x-toast-success>
 
 @endsection
 
 @push('other-scripts')
     <script>
+        // (function() {
+        //     'use strict'
+        //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        //     var forms = document.querySelectorAll('.needs-validation')
+        //     // Loop over them and prevent submission
+        //     Array.prototype.slice.call(forms).forEach(function(form) {
+        //     form.addEventListener('submit', function(event) {
+        //         if (!form.checkValidity()) {
+        //         event.preventDefault()
+        //         event.stopPropagation()
+        //         }
+        //         form.classList.add('was-validated')
+        //     }, false)
+        //     })
+        // })()
         $(function () {
-            
-            $('.nameRole').keyup(function (e) { 
-                $('.slugRole').val(removeAccents($(this).val()))
-            });
+            $('#CreateUser').click(function () { 
+                var data = serializeArrayIncludingDisabledFields($('#formCreateUser'));
+                var html = "";
+                console.log()
+                if(data.email=='' || !validateEmail(data.email)){
+                    html += "Email rỗng hoặc chưa đúng định dạng<br>";
+                }
+                if(data.name == ''){
+                    html += "Name không được để trống<br>";
+                }
+                if(data.password == ''){
+                    html += "Password không được để trống";
+                }
+                if(data.password != $('#passwordConfirm').val()){
+                    html += "Password không khớp";
+                }
+                if(html != ''){
+                    $('.error-form').html(html);
+                    $('.error-form').css('display', '');
+                    return false;
+                }
 
-            $('#CreateRole').click(function () { 
-                var data = serializeArrayIncludingDisabledFields($('#formCreateRole'));
                 $.ajax({
                     type: "POST",
-                    url: "{{ route('role.create') }}",
+                    url: "{{ route('user.create') }}",
                     data: data,
                     success: function (response) {
                         if(typeof response.error !== "undefined" && response){
@@ -85,15 +133,18 @@
                             var html = `<tr>
                                             <th scope="row">#</th>
                                             <td>${res.name}</td>
-                                            <td>${res.slug}</td>
+                                            <td>${res.email}</td>
+                                            <td></td>
                                             <td>
                                                 <button class="btn btn-outline-primary rounded-pill btn-sm modalEditRole" data-id="${res.id}" data-coreui-toggle="modal" data-coreui-target="#updateRole" data-coreui-whatever="@mdo">Sửa</button>
                                                 <button class="btn btn-outline-primary rounded-pill btn-sm confirmDeleteRole" data-id="${res.id}" data-name="${res.name}">Xóa</button>
                                             </td>
                                         </tr>`;
-                            $('#RoleTable').prepend(html);
-                            $('#formCreateRole')[0].reset();
-                            $('#addRole').modal('toggle');
+                            $('#tableUser').prepend(html);
+                            $('#formCreateUser')[0].reset();
+                            $('#addUser').modal('toggle');
+                            $('.error-form').html();
+                            $('.error-form').css('display', 'none');
                             showToast();
                         }
                     }
